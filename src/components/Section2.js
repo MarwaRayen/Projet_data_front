@@ -16,7 +16,6 @@ import {
   Legend,
 } from "chart.js";
 
-// Register all necessary components
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 function Section2() {
@@ -54,7 +53,6 @@ function Section2() {
             setPlotData(json_figures);
           }
 
-          // Handle df_stats
           if (result.data.df_stats) {
             setStatsData(result.data.df_stats);
           }
@@ -70,13 +68,15 @@ function Section2() {
   const get_figures = () => {
     if (plotData != null) {
       return (
-        <div className="w-75 d-flex flex-column">
+        <div className="w-full flex flex-col gap-6">
           {Object.entries(plotData).map(([plot_name, plot]) => (
-            <Plot
-              key={plot_name}
-              data={plot.data}
-              layout={plot.layout}
-            />
+            <div key={plot_name} className="bg-[#1a1a2e] rounded-2xl p-6 shadow-2xl border border-purple-900/30">
+              <Plot
+                data={plot.data}
+                layout={plot.layout}
+                className="w-full"
+              />
+            </div>
           ))}
         </div>
       );
@@ -93,36 +93,39 @@ function Section2() {
         "Ratio Sharpe"
       ];
 
+      const icons = ["📊", "📈", "💹", "⚡"];
+
       return (
-        <div className="stats-container">
-          <h2 className="text-3xl font-bold">Performance</h2>
-          <div className="flex justify-center mt-2">
-            <img 
-              src={line}
-              alt="Decorative Line"
-              className="w-30 py-0"
-            />
+        <div className="mt-12 w-full">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-extrabold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+              Métriques de Performance
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
           </div>
-          <div className="stats-grid">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {statsData.map((stat, index) => {
-              // stat est un objet comme {"SPY": 0.044}
-              const etfName = Object.keys(stat)[0]; // "SPY"
-              const value = stat[etfName]; // 0.044
+              const etfName = Object.keys(stat)[0];
+              const value = stat[etfName];
               
-              // Formater la valeur
               let displayValue;
               if (index === 3) {
-                // Ratio Sharpe - afficher avec 3 décimales
                 displayValue = value.toFixed(3);
               } else {
-                // Autres stats - convertir en pourcentage
                 displayValue = (value * 100).toFixed(2) + '%';
               }
 
               return (
-                <div key={index} className="stat-card"> 
-                  <h4 className="text-black font-bold">{statLabels[index]}</h4> 
-                  <p className="text-black text-xl">{displayValue}</p>
+                <div 
+                  key={index} 
+                  className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-xl p-6 shadow-xl border border-purple-800/40 hover:border-purple-600/60 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl">{icons[index]}</span>
+                    <h4 className="text-purple-300 font-semibold text-lg">{statLabels[index]}</h4>
+                  </div>
+                  <p className="text-white text-3xl font-bold">{displayValue}</p>
                 </div>
               );
             })}
@@ -132,114 +135,143 @@ function Section2() {
     }
     return null;
   };
-  
-  // Function to calculate date difference in years
-  // const calculateYearsDifference = () => {
-  //   const startDate = new Date(dateDebut);
-  //   const endDate = new Date(dateFin);
-  //   const diffInTime = endDate.getTime() - startDate.getTime();
-  //   const diffInYears = diffInTime / (1000 * 3600 * 24 * 365.25); // 365.25 to account for leap years
-  //   return diffInYears.toFixed(2); // rounding to two decimal places
-  // };
-
-  // const calculateInvestment = () => {
-  //   const totalInvestment = investInit + (investRecu * calculateYearsDifference() / 1000);
-  //   return totalInvestment;
-  // };
 
   return (
-    <section id="section2" className="py-16 bg-black text-white">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold">Mon Portefeuille</h2>
-        <div className="flex justify-center mt-2">
-          <img
-            src={line} // Replace this with the actual image path
-            alt="Decorative Line"
-            className="w-30 py-0"
-          />
+    <section id="section2" className="py-20 bg-gradient-to-b from-[#0f0f1e] via-[#16213e] to-[#0f0f1e] text-white min-h-screen">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-extrabold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent mb-4">
+            Configuration du Portefeuille
+          </h2>
+          <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
         </div>
-      </div>
 
-      <div className="flex justify-center items-center flex-col space-y-8">
-        <form>
-          <label className="block mb-4">
-            Montant initial d’investissement (€)
-            <input
-              type="number"
-              value={investInit}
-              id="portfolio_form_invest_init"
-              onChange={(e) => setInvestInit(e.target.value)}
-              className="mt-2 p-2 w-full rounded text-black"
-            />
-          </label>
-          <label className="block mb-4">
-            Montant des contributions récurrentes (€)
-            <input
-              type="number"
-              value={investRecu}
-              id="portfolio_form_invest_recu"
-              onChange={(e) => setInvestRecu(e.target.value)}
-              className="mt-2 p-2 w-full rounded text-black"
-              placeholder="Ex: 100"
-            />
-          </label>
-          <label className="block mb-4">
-            Fréquence des contributions
-            <select
-              value={frequenceContributions}
-              onChange={(e) => setFrequenceContributions(e.target.value)}
-              className="mt-2 p-2 w-full rounded text-black"
-            >
-              <option value="monthly">Mois</option>
-              <option value="quarterly">Trimestre</option>
-              <option value="yearly">Année</option>
-            </select>
-          </label>
-          <label className="block mb-4 ">
-            Date début d’investissement
-            <input
-              type="date"
-              className="mt-2 p-2 w-full rounded text-black"
-              id="portfolio_form_date_debut" 
-              value={dateDebut} 
-              onChange={(e) => setDateDebut(e.target.value)}
-            />
-          </label>
-          <label className="block mb-4 ">
-            Date fin d’investissement
-            <input
-              type="date"
-              className="mt-2 p-2 w-full rounded text-black"
-              id="portfolio_form_date_fin" 
-              value={dateFin} 
-              onChange={(e) => setDateFin(e.target.value)}
-            />
-          </label>
-          <label className="block mb-4">
-            Frais de gestion annuels (€)
-            <input
-              type="number"
-              className="mt-2 p-2 w-full rounded text-black"
-              id="portfolio_form_frais_gestion" 
-              value={fraisGestion} 
-              onChange={(e) => setFraisGestion(e.target.value)}
-            />
-          </label>
-          <Etf listActifs={listActifs} setListActifs={setListActifs} />              
-          <button
-            type="button"
-            className="bg-[#CFFF24] text-black py-2 px-6 rounded-lg mt-4 hover:bg-[#A3D500] transition font-bold w-full"
-            onClick={() => {
-              console.log("fetching");
-              fetch_data();
-            }}
-          >
-            Commencer L'analyse
-          </button>
-        </form>
-        <div className="w-full max-w-xl text-center">
-          {get_figures()}
-          {get_stats()}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Colonne gauche - Formulaire */}
+            <div className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl p-8 shadow-2xl border border-purple-900/30">
+              <h3 className="text-2xl font-bold text-purple-300 mb-6 flex items-center gap-2">
+                <span>💰</span> Paramètres d'Investissement
+              </h3>
+              
+              <form className="space-y-6">
+                <div>
+                  <label className="block text-purple-200 font-semibold mb-2">
+                    Montant Initial (€)
+                  </label>
+                  <input
+                    type="number"
+                    value={investInit}
+                    onChange={(e) => setInvestInit(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-purple-200 font-semibold mb-2">
+                    Contributions Récurrentes (€)
+                  </label>
+                  <input
+                    type="number"
+                    value={investRecu}
+                    onChange={(e) => setInvestRecu(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                    placeholder="Ex: 100"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-purple-200 font-semibold mb-2">
+                    Fréquence
+                  </label>
+                  <select
+                    value={frequenceContributions}
+                    onChange={(e) => setFrequenceContributions(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                  >
+                    <option value="monthly">Mensuel</option>
+                    <option value="quarterly">Trimestriel</option>
+                    <option value="yearly">Annuel</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-purple-200 font-semibold mb-2">
+                      Date Début
+                    </label>
+                    <input
+                      type="date"
+                      value={dateDebut}
+                      onChange={(e) => setDateDebut(e.target.value)}
+                      className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-purple-200 font-semibold mb-2">
+                      Date Fin
+                    </label>
+                    <input
+                      type="date"
+                      value={dateFin}
+                      onChange={(e) => setDateFin(e.target.value)}
+                      className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-purple-200 font-semibold mb-2">
+                    Frais de Gestion Annuels (€)
+                  </label>
+                  <input
+                    type="number"
+                    value={fraisGestion}
+                    onChange={(e) => setFraisGestion(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-[#0f0f1e] border border-purple-800/50 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all outline-none"
+                  />
+                </div>
+
+                <Etf listActifs={listActifs} setListActifs={setListActifs} />
+
+                <button
+                  type="button"
+                  onClick={fetch_data}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/50"
+                >
+                  🚀 Lancer l'Analyse
+                </button>
+              </form>
+            </div>
+
+            {/* Colonne droite - Info box */}
+            <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-2xl p-8 border border-purple-800/30 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-purple-300 mb-4 flex items-center gap-2">
+                <span>ℹ️</span> À propos de l'analyse
+              </h3>
+              <div className="space-y-4 text-purple-100">
+                <p className="leading-relaxed">
+                  Cet outil vous permet de simuler et d'analyser la performance de votre portefeuille d'investissement sur une période donnée.
+                </p>
+                <div className="bg-[#1a1a2e]/50 rounded-lg p-4 border border-purple-800/30">
+                  <h4 className="font-semibold text-purple-300 mb-2">📈 Métriques calculées :</h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>• Volatilité mensuelle et annuelle</li>
+                    <li>• CAGR (Taux de croissance annuel composé)</li>
+                    <li>• Ratio de Sharpe</li>
+                    <li>• Évolution du capital</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section résultats */}
+          <div className="w-full">
+            {get_figures()}
+            {get_stats()}
+          </div>
         </div>
       </div>
     </section>
