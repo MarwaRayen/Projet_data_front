@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-scroll';
 import logo from "./../assets/back.png";
 import lighting from "./../assets/back_light.png"; 
-import logo1 from "./../assets/logo-removed.png";
+import logo1 from "./../assets/logo_v2.png";
 
 function Section1() {
   return (
@@ -33,7 +33,7 @@ function Section1() {
         </div>
 
         {/* Main Title */}
-        <h1 className="text-6xl font-extrabold leading-tight">
+        <h1 className="text-4xl font-extrabold leading-tight">
           <span className="text-white">Construisez un avenir</span>
           <br />
           <span className="text-white">financier plus sûr</span>
@@ -44,7 +44,7 @@ function Section1() {
         </h1>
 
         {/* Description */}
-        <p className="text-purple-200 text-lg leading-relaxed max-w-xl">
+        <p className="text-purple-200 text-md leading-relaxed max-w-[900px]">
           Explorez vos stratégies d'investissement, comparez différentes approches
           et optimisez vos performances grâce à des outils avancés d'analyse de données.
         </p>
@@ -52,7 +52,7 @@ function Section1() {
         {/* Stats/Features */}
         <div className="flex gap-8 pt-4">
           <div className="space-y-1">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               100+
             </div>
             <div className="text-purple-300 text-sm">ETF Disponibles</div>
@@ -66,7 +66,7 @@ function Section1() {
           </div>
           <div className="w-px bg-purple-800/50"></div>
           <div className="space-y-1">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               IA
             </div>
             <div className="text-purple-300 text-sm">Analyse Avancée</div>
@@ -74,7 +74,7 @@ function Section1() {
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center gap-6 pt-6">
+        <div className="flex items-center gap-6 pt-4">
           <a
             href="#section2"
             className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-4 rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.6)] transition-all duration-300 transform hover:scale-105"
@@ -100,7 +100,7 @@ function Section1() {
         </div>
 
         {/* Trust indicators */}
-        <div className="flex items-center gap-4 pt-6">
+        <div className="flex items-center gap-4 pt-4">
           <div className="flex -space-x-2">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 border-2 border-[#0A0910] flex items-center justify-center text-white font-bold text-sm">
@@ -116,16 +116,16 @@ function Section1() {
       </div>
 
       {/* RIGHT : IMAGE / GRAPHIC */}
-      <div className="flex-shrink-0 ml-28 relative z-10">
+      <div className="flex-shrink-0 ml-15 relative z-10">
         <div className="relative">
           {/* Glow effect behind image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-pink-600/30 rounded-full blur-3xl"></div>
+          <div className="absolute inset-20 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl"></div>
           
           {/* Main image with hover effect */}
           <img
             src={logo1}
             alt="Illustration IA"
-            className="relative w-[550px] opacity-95 transition-all duration-500 hover:scale-105 hover:opacity-100 drop-shadow-[0_0_50px_rgba(168,85,247,0.3)]"
+            className="relative w-[325px] transition-all duration-500 hover:scale-105 hover:opacity-50 drop-shadow-[0_0_50px_rgba(168,85,247,0.3)]"
           />
           
           {/* Floating elements */}

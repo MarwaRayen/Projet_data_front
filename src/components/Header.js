@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Path from "./../assets/miniLogo-removed.png";
+import Path from "./../assets/logo_h2.png";
 import lighting from "./../assets/light.png";
 
 function Header() {
@@ -34,11 +34,11 @@ function Header() {
         <div className="absolute left-10">
           <a href="#home" className="group flex items-center gap-3">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+              <div className="absolute top-2 left-1 w-20 h-5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
               <img
                 src={Path}
                 alt="Logo"
-                className="relative h-12 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-transform duration-300 group-hover:scale-110"
+                className="relative h-10 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-transform duration-300 group-hover:scale-110"
               />
             </div>
             <div className="hidden md:block">

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo-removed.png";
+import logo from "../assets/logo_white.png";
 
 function Footer() {
   return (
@@ -19,9 +19,9 @@ function Footer() {
             </div>
             <div>
               <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Wallet
+                Kaizen
               </h3>
-              <p className="text-purple-300 text-sm">Portfolio Analytics</p>
+              <p className="text-purple-300 text-sm">Analytics</p>
             </div>
           </div>
 
@@ -84,7 +84,7 @@ function Footer() {
           {/* Copyright */}
           <div className="text-center">
             <p className="text-purple-300 text-sm">
-              © 2025 Wallet Analytics. Tous droits réservés.
+              © 2025 Kaizen Analytics. Tous droits réservés.
             </p>
           </div>
 
